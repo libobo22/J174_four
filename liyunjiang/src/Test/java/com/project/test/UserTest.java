@@ -15,7 +15,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class UserTest {
-    @Resource
+    @Resource(name = "userService")
     private IUserService userService;
     @Test
     public void test1(){
@@ -24,11 +24,11 @@ public class UserTest {
 //        user.setUserName("zhangsan");
 //        user.setPassword("123456");
 //        user.setBirthday(Date.valueOf("2012-03-05"));
-//        List<UserEntity> list=userService.findAll();
-//        for (UserEntity user:
-//             list) {
-//            System.out.println(user.getId()+" "+user.getUserName()+" "+user.getPassword());
-//        }
+        List<UserEntity> list=userService.findAll();
+        for (UserEntity user:
+             list) {
+            System.out.println(user.getId()+" "+user.getUserName()+" "+user.getPassword());
+        }
 //        userService.addUser(user);
 //        userService.delUserById(18);
 //        userService.updatePasswordById(1,"123456");

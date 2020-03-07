@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements IUserService {
     @Resource
     private IUserDao userDao;
