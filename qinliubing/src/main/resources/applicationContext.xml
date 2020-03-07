@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         					http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-4.0.xsd
+							http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                            http://www.springframework.org/schema/mvc
+							http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!--配置数据源-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 配置MySql驱动(mysql-connector包) -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <!-- 配置url -->
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/aopdb?characterEncoding=utf-8&amp;allowMultiQueries=true"></property>
+        <!-- 配置mysql登录用户名 -->
+        <property name="username" value="root"></property>
+        <!-- 配置mysql登录密码 -->
+        <property name="password" value="zxx6789713468"></property>
+    </bean>
+
+    <!-- 配置会话工厂(mybatis-spring包) -->
+    <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 配置数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 扫描指定包中的实体类，确定每个实体类的别名 -->
+        <property name="typeAliasesPackage" value="com.project.entity"></property>
+        <!-- 链接指定包中的ORM映射文件 -->
+        <property name="mapperLocations" value="classpath:orm/*.xml"></property>
+    </bean>
+
+    <!-- 配置产生mapper(mybatis-spring包) -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 指明会话工厂的spring组件类名，引用factory对应的类 -->
+        <property name="sqlSessionFactoryBeanName" value="factory"></property>
+        <!-- 指明mapper接口所在的包，这样才能产生mapper接口所对应的实现类对象 -->
+        <property name="basePackage" value="com.project.mapper"></property>
+    </bean>
+
+    <!-- 配置事务管理器(spring-jdbc包) -->
+    <bean id="transaction" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 配置数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- 表示允许通过注解配置事务 -->
+    <tx:annotation-driven transaction-manager="transaction"></tx:annotation-driven>
+
+    <!-- 扫描指定包及子包中的spring组件 -->
+    <context:component-scan base-package="com.project"></context:component-scan>
+
+</beans>
