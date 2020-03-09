@@ -18,5 +18,8 @@ public interface IUserDao {
 
     @Update("update t_user3 set f_password=#{param2} where pk_id=#{param1}")
     public void updatePasswordById(Integer userId,String password);
+    @Select("select pk_id id,f_userName userName,f_password password,f_birthday birthday from t_user3 where f_userName=#{userName}")
+    @ResultType(UserEntity.class)
+    public UserEntity findByUserName(String userName);
 
 }

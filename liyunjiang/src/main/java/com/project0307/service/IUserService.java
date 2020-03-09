@@ -12,4 +12,6 @@ public interface IUserService {
     public void delUserById(Integer userId);
 
     public void updatePasswordById(Integer userId,String password);
+
+    public UserEntity findByUserName(String userName);
 }

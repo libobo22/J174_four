@@ -22,6 +22,7 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     @Override
     public void addUser(UserEntity user) {
+        System.out.println("addUserService===");
         userDao.addUser(user);
 //        int x=9/0;
     }
@@ -36,5 +37,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void updatePasswordById(Integer userId, String password) {
         userDao.updatePasswordById(userId,password);
+    }
+
+    @Override
+    public UserEntity findByUserName(String userName) {
+        return userDao.findByUserName(userName);
     }
 }
