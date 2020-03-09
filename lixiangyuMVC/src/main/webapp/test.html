@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+        function add() {
+            $.ajax({
+                url: "add",
+                type: "post",
+                data: $("#f1").serialize(),
+                success: function (info) {
+                    if (info == "ok") {
+                        location.href = "ok.html";
+                    } else {
+                        $("#errorDiv").html(info);
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="errorDiv" style="color: red"></div>
+<form id="f1">
+    用户名：<input type="text" name="userName"><br><br>
+    密码：<input type="text" name="pwd"><br><br>
+    年龄：<input type="text" name="age"><br><br>
+    <input type="button" value="提交" onclick="add()">
+</form>
+</body>
+</html>
