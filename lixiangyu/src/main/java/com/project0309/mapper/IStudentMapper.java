@@ -1,6 +1,6 @@
-package com.project0307.mapper;
+package com.project0309.mapper;
 
-import com.project0307.entity.StudentEntity;
+import com.project0309.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 
 /**

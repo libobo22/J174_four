@@ -1,7 +1,6 @@
 package com.project.test;
 
-import com.project0307.entity.StudentEntity;
-import com.project0307.service.IStudentService;
+import com.project0309.service.IStudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,6 +19,6 @@ public class StuTest {
 //        service.add(new StudentEntity("小明", "15884867186"));
 //        service.del(22);
 //        service.update(2, "1666666666");
-        System.out.println(service.findById(2).getName());
+        System.out.println(service.findById(19).getName());
     }
 }
