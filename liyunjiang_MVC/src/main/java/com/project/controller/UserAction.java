@@ -13,13 +13,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
 @Controller
+@CrossOrigin
 @RequestMapping("user")
 public class UserAction {
 
@@ -40,6 +39,7 @@ public class UserAction {
             String json="";
             if (responseEntity != null) {
                 json=EntityUtils.toString(responseEntity);
+                System.out.println(json);
                 return json;
             }
         } catch (IOException e) {
@@ -62,7 +62,7 @@ public class UserAction {
 
     @RequestMapping("addUser")
     @ResponseBody
-    public String addUser(UserVO user){
+    public String addUser(@RequestBody UserVO user){
         System.out.println(user);
         HttpClient httpClient= HttpClients.createDefault();
         HttpPost httpPost=new HttpPost("http://localhost:8080/liyunjiang/user/addUser");

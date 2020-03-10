@@ -3,13 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-    <form action="user/addUser" method="post">
-        <input type="text" name="userName">
-        <input type="text" name="password">
-        <input type="text" name="birthday">
-        <input type="submit" value="提交">
-    </form>
+    <div id="allUser" style="width: 700px;margin: 0 auto;">
+        <table class="layui-table">
+            <thead>
+                <tr><td>用户名</td><td>密码</td><td>出生日期</td><td>操作</td></tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item,index) in users"><td>{{item.userName}}</td><td>{{item.password}}</td><td>{{item.birthday}}</td>
+                <td><a class="layui-btn" @click="findUser(item.id)">详细信息</a>&nbsp;&nbsp;
+                    <a class="layui-btn" @click="addUserInfo(item.id)">添加/更变信息</a></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="showInfo" style="display: none;">
+        <label class="layui-form-label">姓名:</label><label class="layui-form-label">{{userName}}</label>
+        <label class="layui-form-label">密码:</label><label class="layui-form-label">{{password}}</label><br><br><br>
+        <label class="layui-form-label">出生日期:</label><label class="layui-form-label">{{birthday}}</label>
+        <table class="layui-table">
+            <thead>
+                <tr><td>职位</td><td>工资</td><td>更变日期</td></tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in info"><td>{{item.job}}</td><td>{{item.money}}</td><td>{{item.changeDate}}</td>
+            </tbody>
+        </table>
+    </div>
+    <div id="addUserInfo" style="display: none;">
+        <form class="layui-form" style="width: 300px;margin: 0 auto;">
+            <label class="layui-form-label">职位:</label><input class="layui-input" v-model="job">
+            <label class="layui-form-label">工资:</label><input class="layui-input" v-model="money">
+            <label class="layui-form-label">更变日期:</label><input class="layui-input" v-model="changeDate">
+        </form>
+        <a class="layui-btn" @click="add">添加</a>
+    </div>
 </body>
+<script>
+    var layer=null;
+    var allUser=null;
+    window.onload=function () {
+        layui.use('layer', function(){
+            layer = layui.layer;
+        });
+        axios({
+            url:"user/findAll",
+            method:"get"
+        }).then(function(response){
+            allUser=JSON.parse(response.data);
+            var app=new Vue({
+               el:"#allUser",
+                data:{
+                   users:allUser
+                },
+                methods:{
+                    findUser(userId){
+                        showInfo(userId);
+                    },
+                    addUserInfo(userId){
+                        showAddInfo(userId);
+                    }
+                }
+            });
+        }).catch(function(error){
+            console.log(error);
+        });
+    }
+    var showVue=new Vue({
+        el:"#showInfo",
+        data:{
+            userName:"",
+            password:"",
+            birthday:"",
+            info:null
+        }
+    });
+    function showInfo(userId) {
+        layer.open({
+            title:'主帖详情',
+            type:1,
+            shadeClose:true,//点击遮罩关闭
+            // skin:'layui-layer-rim',//加上边框
+            area:['600px','500px'],//宽高
+            anim:4,                 //动画
+            content:$("#showInfo")//内容为contentDiv内容
+        });
+        axios({
+            url:"user/findUserInfoById?userId="+userId,
+            method:"get"
+        }).then(function(response){
+            var json=JSON.parse(response.data);
+            showVue.userName=json.userName;
+            showVue.password=json.password;
+            showVue.birthday=json.birthday;
+            showVue.info=json.infoList;
+        }).catch(function(error){
+            console.log(error);
+        });
+    }
+    var addUserId=null;
+    var addInfo=new Vue({
+        el: "#addUserInfo",
+        data: {
+            job: "",
+            money: "",
+            changeDate: ""
+        },
+        methods:{
+            add:function () {
+                axios({
+                    url:"user/addInfo?userId="+addUserId+"&job="+this.job+"&money="+this.money+"&changeDate="+this.changeDate,
+                    method:"get"
+                }).then(function(response){
+                    if (response.data=="ok"){
+                        layer.closeAll();
+                    }
+                }).catch(function(error){
+                    console.log(error);
+                });
+            }
+        }
+    })
+    function showAddInfo(userId){
+        addUserId=userId;
+        addInfo.job="";
+        addInfo.money="";
+        addInfo.changeDate="";
+        layer.open({
+            title:'主帖详情',
+            type:1,
+            shadeClose:true,//点击遮罩关闭
+            // skin:'layui-layer-rim',//加上边框
+            area:['600px','500px'],//宽高
+            anim:4,                 //动画
+            content:$("#addUserInfo")//内容为contentDiv内容
+        });
+    }
+
+
+</script>
 </html>

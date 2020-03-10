@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>注册</h1>
+    <div id="regForm">
+        <form>
+            <input type="text" name="userName" v-model="userName">
+            <input type="text" name="password" v-model="password">
+            <input type="text" name="birthday" v-model="birthday"><br>
+            <a @click="reg">注册</a>
+        </form>
+
+    </div>
+    <button id="findAll" @click="findAll">查询所有</button>
+</body>
+<script>
+    var register=new Vue({
+       el: "#regForm",
+       data:{
+           userName:"",
+           password:"",
+           birthday:""
+       },
+        methods:{
+           reg:function () {
+               axios({
+                  url: "user/addUser",
+                  method:"post",
+                  data:{
+                      "userName": this.userName,
+                      'password': this.password,
+                      "birthday":this.birthday
+                  }
+               }).then(function (response) {
+                   if (response.data=="ok"){
+                       window.location="index.html";
+                   }
+               }).catch(function (error) {
+                   alert("注册失败！");
+               })
+           }
+        }
+
+    });
+</script>
+</html>

@@ -1,5 +1,6 @@
 package com.project.VO;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
@@ -9,6 +10,7 @@ public class UserVO {
     private String userName;
     private String password;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JSONField(format = "yyyy-MM-dd")
     private Date birthday;
 
     public Integer getId() {

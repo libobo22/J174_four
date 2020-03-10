@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project0310.dao.IUserDao">
+    <resultMap id="userRM" type="userBean">
+        <id property="id" column="pk_id"></id>
+        <result property="userName" column="f_userName"/>
+        <result property="password" column="f_password"/>
+        <result property="birthday" column="f_birthday"/>
+    </resultMap>
+    <resultMap id="IncludeInfoRM" type="userBean" extends="userRM">
+        <association property="infoList" column="pk_id" select="findInfo"></association>
+    </resultMap>
+    <resultMap id="infoRM" type="infoBean">
+        <id property="infoId" column="pk_infoId"></id>
+        <result property="job" column="f_job"/>
+        <result property="money" column="f_money"/>
+        <result property="changeDate" column="f_changeDate"/>
+    </resultMap>
+    <select id="findUserInfoById" resultMap="IncludeInfoRM">
+        select * from t_user3 where pk_id=#{userId}
+    </select>
+    <select id="findInfo" resultMap="infoRM">
+        select * from t_info where fk_userId=#{pk_id}
+    </select>
+</mapper>
