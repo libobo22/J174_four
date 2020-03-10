@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+        function find() {
+            var userName = $("#userName").val();
+            var url = "find/" + userName;
+            $.ajax({
+                url: url,
+                type: "get",
+                success: function (info) {
+                    var jsonObject = JSON.parse(info);
+                    $("#user").html("用户名：" + jsonObject.userName + "密码：" + jsonObject.pwd + "年龄：" + jsonObject.age);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+请输入用户名：<input type="text" id="userName"><br><br>
+<input type="button" value="查询" onclick="find()"><br><br>
+<span id="user"></span>
+</body>
+</html>

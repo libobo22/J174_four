@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.IUserMapper">
+
+    <resultMap id="userMap" type="userEntity">
+        <result column="pk_id" property="id"></result>
+        <result column="f_userName" property="userName"></result>
+        <result column="f_pwd" property="pwd"></result>
+        <result column="f_age" property="age"></result>
+    </resultMap>
+
+    <select id="findByUserName" resultMap="userMap">
+        select * from t_user where f_userName = #{userName};
+    </select>
+
+    <insert id="addUser">
+        insert into t_user values (null,#{userName},#{pwd},#{age});
+    </insert>
+</mapper>

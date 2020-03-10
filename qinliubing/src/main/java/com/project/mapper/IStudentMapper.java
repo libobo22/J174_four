@@ -4,6 +4,8 @@ package com.project.mapper;
 import com.project.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 
 public interface IStudentMapper {
     @Insert("insert into t_student(f_name,f_phone) values(#{name},#{phone})")
@@ -18,4 +20,8 @@ public interface IStudentMapper {
     @Select("select * from t_student where pk_id=#{id}")
     @ResultMap("studentMap")
     public StudentEntity findById(int id);
+
+    @Select("select  f_phone from t_student where f_name=#{paaram1}")
+
+    public String getPhone(String name);
 }

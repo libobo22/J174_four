@@ -1,23 +1,24 @@
-package com.project0309.entity;
+package com.project.entity;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-
-/**
- * 用户实体类
- */
 public class UserEntity {
     private int id;
-    @Pattern(regexp = "[a-z]{3}", message = "用户名必须是三位的小写字母")
     private String userName;
-    @Pattern(regexp = "\\d{3}", message = "密码必须是三位数字")
     private String pwd;
-    @Min(value = 1, message = "年龄必须是数字")
     private int age;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String userName, String pwd, int age) {
+        this.userName = userName;
+        this.pwd = pwd;
+        this.age = age;
+    }
 
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -45,5 +46,15 @@ public class UserEntity {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

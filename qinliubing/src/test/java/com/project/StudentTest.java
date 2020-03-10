@@ -18,8 +18,8 @@ public class StudentTest {
 
     @Test
     public void test() {
-            service.add(new StudentEntity("詹姆斯", "12348900987"));
-     //  service.del(4);
+           // service.add(new StudentEntity("詹姆斯", "12348900987"));
+       service.del(11);
       //service.updatePhone(4, "18888888888");
       //  System.out.println(service.findById(4).getName());
     }
