@@ -18,4 +18,9 @@ public class UserServiceImpl implements IUserService {
     public UserEntity findByUserName(String userName) {
         return mapper.findByUserName(userName);
     }
+
+    @Override
+    public void addUser(UserEntity userEntity) {
+        mapper.addUser(userEntity);
+    }
 }
