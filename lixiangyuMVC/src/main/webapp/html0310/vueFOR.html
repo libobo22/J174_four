@@ -52,8 +52,7 @@
             var self = this;//将vue自身赋值给self，方便在回调函数中使用
             axios.get('../findAllUser')
                 .then(function (response) {
-                    var json_data = JSON.parse(response.data);
-                    self.users = json_data;
+                    self.users = response.data;
                 })
                 .catch(function (error) {
                     console.log(error);

@@ -23,9 +23,10 @@
     <!-- mvc:annotation-driven使用注解功能 -->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
+            <!-- 避免string类型直接解析成json-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
             <!--json处理-->
-            <bean
-                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="supportedMediaTypes">
                     <list>
                         <value>application/json;charset=UTF-8</value>

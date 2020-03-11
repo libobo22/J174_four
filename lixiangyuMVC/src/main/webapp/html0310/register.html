@@ -31,13 +31,13 @@
         },
         methods: {
             register: function () {
-                var self=this;
+                var self = this;
                 axios({
                     method: 'post',
                     url: '../register',
                     data: {'userName': this.userName, 'pwd': this.pwd, 'age': this.age}
-                }).then(response => {
-                    if (response.data=='ok'){
+                }).then(function (resp) {
+                    if (resp.data=='ok'){
                         self.info='添加成功'
                     }
                 }).catch(function (error) {
