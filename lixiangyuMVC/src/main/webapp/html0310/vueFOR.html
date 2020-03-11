@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue循环</title>
+    <style>
+        table tr td {
+            border: 1px solid gray;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 300px;
+        }
+
+        tr.firstLine {
+            background-color: lightGray;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <table align="center">
+        <tr class="firstLine">
+            <td>用户名</td>
+            <td>密码</td>
+            <td>年龄</td>
+            <td>操作</td>
+        </tr>
+
+        <tr v-for="user in users">
+            <td>{{user.userName}}</td>
+            <td>{{user.pwd}}</td>
+            <td>{{user.age}}</td>
+            <td><input type="button" value="查看详情" @click="userInfo(user.id)"></td>
+        </tr>
+
+    </table>
+</div>
+
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<!--AJAX框架axios-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    new Vue({
+        el: "#div1",
+        data: {
+            users: ""
+        },
+        mounted() {
+            var self = this;//将vue自身赋值给self，方便在回调函数中使用
+            axios.get('../findAllUser')
+                .then(function (response) {
+                    var json_data = JSON.parse(response.data);
+                    self.users = json_data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        methods: {
+            userInfo: function (id) {
+                alert(id);
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
