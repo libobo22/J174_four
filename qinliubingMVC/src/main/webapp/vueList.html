@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VUE集合</title>
+</head>
+<body>
+        <div id="lid">
+                <table>
+                    <tr>
+                        <td>用户名</td>
+                        <td>用户密码</td>
+                        <td>年龄</td>
+                        <td>操作</td>
+                    </tr>
+                    <tr v-for="u in info">
+                        <td>{{u.userName}}</td>
+                        <td>{{u.pwd}}</td>
+                        <td>{{u.age}}</td>
+                        <td><input type="button" value="查看详情" @click="userInfo(u.id)" ></td>
+                    </tr>
+                </table>
+        </div>
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+        <!--AJAX-->
+        <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+    new Vue({
+        el:"#lid",
+        data:{
+            info:""
+        },
+        mounted:function () {
+            //发送get请求
+            this.$http.get('find/{userName}').then(function(result){
+                var r= result.body;
+                //把json字符串转换为json对象
+                var json_r=   JSON.parse(r);
+                alert(r);
+                //把数据绑定到data中
+                this.info=json_r;
+            },function(){
+                console.log('请求失败处理');
+            });
+        },
+        methods:{
+           userInfo:function(id){
+               alert(id);
+               //ajax去后台查询
+
+           }
+        }
+    })
+</script>
+</body>
+</html>

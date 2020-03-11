@@ -26,8 +26,8 @@ public class UserController {
     }
 
     @RequestMapping("add")
-    public void addUser(@RequestBody UserEntity userEntity, HttpServletResponse response) throws IOException {
+    public void  addUser(@RequestBody UserEntity userEntity, HttpServletResponse response) throws IOException {
         service.addUser(userEntity);
-        response.getWriter().print(userEntity.getUserName());
+        response.getWriter().print("ok");
     }
 }
