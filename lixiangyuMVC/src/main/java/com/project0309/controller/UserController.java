@@ -21,7 +21,7 @@ import java.io.IOException;
 @RestController
 public class UserController {
 
-    @RequestMapping("find/{userName}")
+    @RequestMapping("userInfo/{userName}")
     public String find(@PathVariable("userName") String userName) {
         //调用服务器数据，所以它对于浏览器属于后端，对于后端服务器属于客户端
         //1、创建httpclient 对象
@@ -63,9 +63,9 @@ public class UserController {
             HttpResponse httpResponse = httpClient.execute(httpPost);
             //获取返回的实体
             HttpEntity httpEntity = httpResponse.getEntity();
-            //获取实体对象中的字符，也就是后端返回的json
-            String json = EntityUtils.toString(httpEntity, "utf-8");
-            return json;
+            //获取实体对象中的字符
+            String result = EntityUtils.toString(httpEntity, "utf-8");
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }

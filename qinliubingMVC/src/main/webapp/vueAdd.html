@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单数据</title>
+</head>
+<body>
+    <div id="vid">
+
+        <input type="text" v-model="info"/></p>
+        <button @click="submitInfo">提交表单</button>
+        <span style="font-size: 30px">{{info}}</span>
+    </div>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <!--AJAX框架axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el:"#vid",
+        data:{
+            info:""
+        },
+        methods:{
+            submitInfo:function(){
+                alert(this.info)
+                //ajax把数据提交到后台
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

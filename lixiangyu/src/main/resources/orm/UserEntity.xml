@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="findByUserName" resultMap="userMap">
-        select * from t_user where f_userName = #{userName};
+        select * from t_user where f_userName = #{name};
     </select>
 
     <insert id="addUser">

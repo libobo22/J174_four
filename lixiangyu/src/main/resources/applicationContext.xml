@@ -35,7 +35,7 @@
         <!-- 配置数据源 -->
         <property name="dataSource" ref="dataSource"></property>
         <!-- 扫描指定包中的实体类，确定每个实体类的别名 -->
-        <property name="typeAliasesPackage" value="com.project0309.entity"></property>
+        <property name="typeAliasesPackage" value="com.project0310.entity,com.project0309.entity"></property>
         <!-- 链接指定包中的ORM映射文件 -->
         <property name="mapperLocations" value="classpath:orm/*.xml"></property>
     </bean>
@@ -45,7 +45,7 @@
         <!-- 指明会话工厂的spring组件类名，引用factory对应的类 -->
         <property name="sqlSessionFactoryBeanName" value="factory"></property>
         <!-- 指明mapper接口所在的包，这样才能产生mapper接口所对应的实现类对象 -->
-        <property name="basePackage" value="com.project0309.mapper"></property>
+        <property name="basePackage" value="com.project0310.mapper"></property>
     </bean>
 
     <!-- 配置事务管理器(spring-jdbc包) -->
@@ -57,6 +57,6 @@
     <tx:annotation-driven transaction-manager="transaction"></tx:annotation-driven>
 
     <!-- 扫描指定包及子包中的spring组件 -->
-    <context:component-scan base-package="com.project0309.service"></context:component-scan>
+    <context:component-scan base-package="com.project0310.service"></context:component-scan>
 
 </beans>

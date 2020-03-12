@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单数据</title>
+</head>
+<body>
+<div id="vid">
+
+    <form >
+        用户名：<input type="text" v-model="userName"><br>
+        密  码：<input type="text" v-model="pwd"><br>
+        年  龄：<input type="text" v-model="age"><br>
+        <input type="button" value="注册" @click="register">
+    </form>
+    <span style="font-size: 30px">{{info}}</span>
+</div>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<!--AJAX框架axios-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el:"#vid",
+        data:{
+            userName:"",
+            pwd:"",
+            age:"",
+            info:""
+        },
+        methods:{
+            register:function(){
+                var message=this;
+                //ajax把数据提交到后台
+              axios({
+                  url:"add/addUser",
+                  method:"post",
+                  data:{
+                      "userName":this.userName,
+                      "pwd":this.pwd,
+                      "age":this.age
+                  }
+              }).then(function (response) {
+                if(response.data=="ok"){
+                    message.info="成功注册"
+                }
+              }).catch(function (error) {
+                  alert("注册失败");
+              })
+
+            }
+        }
+    });
+</script>
+</body>
+</html>
