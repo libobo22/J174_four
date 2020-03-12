@@ -30,6 +30,11 @@
         <property name="password" value="123456"></property>
     </bean>
 
+    <!-- 配置MyBatis的配置(其中包括日志等功能)(mybatis包) -->
+    <bean id="configuration" class="org.apache.ibatis.session.Configuration">
+        <property name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"></property>
+    </bean>
+
     <!-- 配置会话工厂(mybatis-spring包) -->
     <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 配置数据源 -->
