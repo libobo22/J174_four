@@ -14,10 +14,10 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
-    @Transactional
     @Override
     public void addUser(UserBean user) {
         userDao.addUser(user);
+//        int x=9/0;
     }
 
     @Override
@@ -30,7 +30,6 @@ public class UserServiceImpl implements IUserService {
         return userDao.findUserInfoById(userId);
     }
 
-    @Transactional
     @Override
     public void addInfo(Integer userId, InfoBean info) {
         userDao.addInfo(userId,info);

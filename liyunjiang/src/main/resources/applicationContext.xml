@@ -45,6 +45,17 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
+	<tx:advice id="txAdvice" transaction-manager="transaction">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="*" rollback-for="Exception"></tx:method>
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.project0310.service.*.*(..))"></aop:advisor>
+	</aop:config>
+
 	<!--开启注解方式管理事务-->
-	<tx:annotation-driven transaction-manager="transaction"></tx:annotation-driven>
+	<!--<tx:annotation-driven transaction-manager="transaction"></tx:annotation-driven>-->
 </beans>
