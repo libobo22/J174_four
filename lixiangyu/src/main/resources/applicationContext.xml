@@ -66,7 +66,7 @@
         <tx:attributes>
             <!-- find结尾的方法采用非事务，只读 -->
             <tx:method name="*find" read-only="true"/>
-            <tx:method name="*" rollback-for="Exception"></tx:method>
+            <tx:method name="*" rollback-for="Exception" propagation="REQUIRED" isolation="READ_COMMITTED"></tx:method>
         </tx:attributes>
     </tx:advice>
     <!--通过AOP来把事务通知放到目标方法中-->
