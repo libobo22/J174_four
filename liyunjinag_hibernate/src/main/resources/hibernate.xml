@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/webtest?characterEncoding=utf-8&amp;allowMultiQueries=true</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">123456</property>
+        <!--方言-->
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <!--是否允许hibernate把对象自动生成表-->
+        <!--update 对象属性改变，hibernate会自动去修改表的列，进行同步-->
+        <!--create 启动hibernate时，会把数据库的表全部删除，重新再建-->
+        <property name="hbm2ddl.auto">update</property>
+
+        <mapping class="com.project.entity.UserEntity"></mapping>
+    </session-factory>
+</hibernate-configuration>
