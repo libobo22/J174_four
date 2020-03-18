@@ -132,5 +132,29 @@ public class TestORM {
         }
     }
 
+    //级联添加用户角色
+    @Test
+    public void casAddUserRole() {
+        UserEntity user = new UserEntity();
+        user.setUserName("张三");
+        user.setPassword("666");
+        RoleEntity role = new RoleEntity();
+        role.setRoleName("管理员");
+        UserRoleEntity ur = new UserRoleEntity();
+        ur.setUser(user);
+        ur.setRole(role);
+        session.save(ur);
+    }
 
+    //测试级联删除
+    @Test
+    public void casDelUser() {
+        session.delete(session.get(UserEntity.class, "40288ae670ed0d200170ed0d24860002"));
+    }
+
+    //测试级联删除(注意：从表加了级联，删主表是不会级联删到从表记录的，只会在删除从表记录时级联删除到主表记录)
+    @Test
+    public void casDelUserRole() {
+        session.delete(session.get(UserRoleEntity.class, "40288ae670ed0ea90170ed0ead4b0000"));
+    }
 }

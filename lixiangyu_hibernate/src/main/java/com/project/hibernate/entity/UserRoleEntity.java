@@ -12,10 +12,12 @@ public class UserRoleEntity {
     @GenericGenerator(name = "uruuid", strategy = "uuid")
     @GeneratedValue(generator = "uruuid")
     private String urId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne
     @JoinColumn(name = "f_u_id")
     private UserEntity user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne
     @JoinColumn(name = "f_r_id")
     private RoleEntity role;
 
