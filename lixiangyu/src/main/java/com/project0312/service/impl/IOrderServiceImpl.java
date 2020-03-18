@@ -6,7 +6,7 @@ import com.project0312.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service(value = "orderService")
 public class IOrderServiceImpl implements IOrderService {
     @Autowired
     private IOrderMapper orderMapper;
