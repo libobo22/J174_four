@@ -1,30 +1,31 @@
 package com.project.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "sys_user")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    @GenericGenerator(name = "useruuid",strategy = "uuid")
+    @GeneratedValue(generator = "useruuid")
+    @Column(name = "pk_userId",length = 32)
+    private String userId;
     private String userName;
-    private String password;
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private Set<UserRoleEntity> userRoleSet;
 
-    public UserEntity() {
-    }
 
-    public UserEntity(int userId,String userName, String password) {
-        this.userId=userId;
-        this.userName = userName;
-        this.password = password;
-    }
-
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -36,11 +37,12 @@ public class UserEntity {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public Set<UserRoleEntity> getUserRoleSet() {
+        return userRoleSet;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserRoleSet(Set<UserRoleEntity> userRoleSet) {
+        this.userRoleSet = userRoleSet;
     }
+
 }

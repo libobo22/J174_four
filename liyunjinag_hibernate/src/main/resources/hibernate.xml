@@ -15,7 +15,13 @@
         <!--update 对象属性改变，hibernate会自动去修改表的列，进行同步-->
         <!--create 启动hibernate时，会把数据库的表全部删除，重新再建-->
         <property name="hbm2ddl.auto">update</property>
+        <!--显示打印hibernate执行的sql语句-->
+        <property name="show_sql">true</property>
 
         <mapping class="com.project.entity.UserEntity"></mapping>
+        <mapping class="com.project.entity.RoleEntity"></mapping>
+        <mapping class="com.project.entity.UserRoleEntity"></mapping>
+        <mapping class="com.project.entity.StudentEntity"></mapping>
+        <mapping class="com.project.entity.TeacherEntity"></mapping>
     </session-factory>
 </hibernate-configuration>
