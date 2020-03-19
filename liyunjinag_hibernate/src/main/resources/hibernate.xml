@@ -23,5 +23,7 @@
         <mapping class="com.project.entity.UserRoleEntity"></mapping>
         <mapping class="com.project.entity.StudentEntity"></mapping>
         <mapping class="com.project.entity.TeacherEntity"></mapping>
+        <mapping class="com.project.entity.many.MStudentEntity"></mapping>
+        <mapping class="com.project.entity.many.MTeacherEntity"></mapping>
     </session-factory>
 </hibernate-configuration>

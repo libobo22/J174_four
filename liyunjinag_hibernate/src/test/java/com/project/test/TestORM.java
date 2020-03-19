@@ -1,6 +1,8 @@
 package com.project.test;
 
 import com.project.entity.*;
+import com.project.entity.many.MStudentEntity;
+import com.project.entity.many.MTeacherEntity;
 import com.project.utils.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -143,6 +145,43 @@ public class TestORM {
 
         tr.commit();
         session.close();
+    }
+
+    @Test
+    public void test(){
+        System.out.println(HibernateSessionFactory.getSession());
+    }
+    @Test
+    public void manyToManyAdd(){
+        Session session= HibernateSessionFactory.getSession();
+        Transaction tr=session.getTransaction();
+        tr.begin();
+        MStudentEntity stu=new MStudentEntity();
+        stu.setStudentName("张三");
+
+        MTeacherEntity teacher=new MTeacherEntity();
+        teacher.setTeacherName("李老师");
+        MTeacherEntity teacher2=new MTeacherEntity();
+        teacher2.setTeacherName("黄老师");
+
+        HashSet set=new HashSet();
+        set.add(teacher);
+        set.add(teacher2);
+        stu.setTeacherSet(set);
+        session.save(stu);
+
+        session.save(teacher);
+        session.save(teacher2);
+
+
+        tr.commit();
+        session.close();
+    }
+    @Test
+    public void getManyToMany(){
+        Session session= HibernateSessionFactory.getSession();
+        MStudentEntity stu=session.get(MStudentEntity.class,"402881d670f0cf7a0170f0cf7ee40000");
+        System.out.println("aaa");
     }
 
 }
