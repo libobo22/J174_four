@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--数据库驱动-->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/hibernate?useUnicode=true&amp;characterEncoding=UTF-8</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">zxx6789713468</property>
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <!--是否允许hibernate把对象自动生成表-->
+        <!--update,对象属性改变，那么hibernate会去修改表的列同步-->
+        <!--create,启动hibernate的时候，会把数据库的表全部删除，重新再建-->
+        <property name="hbm2ddl.auto">update</property>
+        <!--显示hibernate打印的sql语句-->
+        <property name="show_sql">true</property>
+        <!--把我们的orm交给hibernate-->
+        <mapping class="com.lovo.hibernate.entity.UserEntity"></mapping>
+        <mapping class="com.lovo.hibernate.entity.RoleEntity"></mapping>
+        <mapping class="com.lovo.hibernate.entity.StudentEntity"></mapping>
+        <mapping class="com.lovo.hibernate.entity.UserRoleEntity"></mapping>
+        <mapping class="com.lovo.hibernate.entity.TeacherEntity"></mapping>
+    </session-factory>
+</hibernate-configuration>
