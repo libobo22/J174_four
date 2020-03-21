@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<h1>用户注册</h1>
+<div id="div1">
+    <form id="f1">
+        用户名：<input type="text" v-model="userName"><br><br>
+        密码：<input type="text" v-model="pwd"><br><br>
+        年龄：<input type="text" v-model="age"><br><br>
+        <input type="button" value="注册新用户" @click="register()">
+    </form>
+    <span>{{info}}</span>
+</div>
+
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<!--AJAX框架axios-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    new Vue({
+        el: "#div1",
+        data: {
+            userName: "",
+            pwd: "",
+            age: "",
+            info: ""
+        },
+        methods: {
+            register: function () {
+                var self = this;
+                axios({
+                    method: 'post',
+                    url: '../register',
+                    data: {'userName': this.userName, 'pwd': this.pwd, 'age': this.age}
+                }).then(function (resp) {
+                    if (resp.data=='ok'){
+                        self.info='添加成功'
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue测试</title>
+</head>
+<body>
+<div id="app">
+    {{ message }}
+    <span>用户名：{{userName}}    密码：{{pwd}}    年龄：{{age}}</span><br><br>
+    <input type="button" value="点击我获取用户信息" @click="get()">
+</div>
+
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<!--ajax-->
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+    window.onload = function () {
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "hello vue!",
+                userName: "",
+                pwd: "",
+                age: ""
+            },
+            methods: {
+                get: function () {
+                    //发送get请求
+                    this.$http.get('userInfo/bbb').then(function (result) {
+                        var r = result.body;
+                        //把json字符串转换为json对象
+                        var json_r = JSON.parse(r);
+                        //填充数据
+                        this.userName = json_r.userName;
+                        this.pwd = json_r.pwd;
+                        this.age = json_r.age;
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+                }
+            }
+        })
+    };
+</script>
+</body>
+</html>
