@@ -1,12 +1,17 @@
 package com;
 
 import com.project.hibernate.entity.*;
+import com.project.hibernate.entity.many.MStudentEntity;
+import com.project.hibernate.entity.many.MTeacherEntity;
 import com.project.hibernate.util.SessionUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class TestORM {
     Session session = null;
@@ -27,10 +32,12 @@ public class TestORM {
 
     @Test
     public void saveT() {
-        TeacherEntity t = new TeacherEntity();
-        t.setTeacherName("陈老师");
-        t.setTeacherClass("J2EE");
-        session.save(t);
+        for (int i = 1; i < 20; i++) {
+            TeacherEntity t = new TeacherEntity();
+            t.setTeacherName("刘老师" + i);
+            t.setTeacherClass("Java" + i);
+            session.save(t);
+        }
     }
 
     @Test
@@ -157,4 +164,33 @@ public class TestORM {
     public void casDelUserRole() {
         session.delete(session.get(UserRoleEntity.class, "40288ae670ed0ea90170ed0ead4b0000"));
     }
+
+
+    @Test
+    public void saveManyToMany() {
+        MTeacherEntity t = new MTeacherEntity();
+        t.setTeacherName("陈老师");
+        t.setTeacherClass("J2EE");
+
+        Set<MStudentEntity> msSet = new HashSet<MStudentEntity>();
+        for (int i = 1; i <= 3; i++) {
+            MStudentEntity s = new MStudentEntity();
+            s.setStudentName("学生" + i);
+            session.save(s);
+            msSet.add(s);
+        }
+        t.setMsSet(msSet);
+        session.save(t);
+    }
+
+    @Test
+    public void findManyToMany() {
+        MTeacherEntity t = session.get(MTeacherEntity.class, "40288ae470f197600170f19763e70003");
+        Set<MStudentEntity> msSet = t.getMsSet();
+        for (MStudentEntity s : msSet) {
+            System.out.println(t.getTeacherName() + "/" + s.getStudentName());
+        }
+    }
+
+
 }

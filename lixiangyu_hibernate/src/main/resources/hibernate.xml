@@ -7,7 +7,7 @@
         <!--数据库驱动-->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <!--url-->
-        <property name="connection.url">jdbc:mysql://localhost:3306/aopdb?characterEncoding=utf-8&amp;allowMultiQueries=true</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/db0321?characterEncoding=utf-8&amp;allowMultiQueries=true</property>
         <!--用户名-->
         <property name="connection.username">root</property>
         <!--密码-->
@@ -21,10 +21,15 @@
         <!--打印sql语句-->
         <property name="show_sql">true</property>
         <!--把我们的ORM交给hibernate-->
-        <mapping class="com.project.hibernate.entity.UserEntity"></mapping>
-        <mapping class="com.project.hibernate.entity.RoleEntity"></mapping>
-        <mapping class="com.project.hibernate.entity.TeacherEntity"></mapping>
-        <mapping class="com.project.hibernate.entity.StudentEntity"></mapping>
-        <mapping class="com.project.hibernate.entity.UserRoleEntity"></mapping>
+        <!--        <mapping class="com.project.hibernate.entity.UserEntity"></mapping>-->
+        <!--        <mapping class="com.project.hibernate.entity.RoleEntity"></mapping>-->
+        <!--        <mapping class="com.project.hibernate.entity.TeacherEntity"></mapping>-->
+        <!--        <mapping class="com.project.hibernate.entity.StudentEntity"></mapping>-->
+        <!--        <mapping class="com.project.hibernate.entity.UserRoleEntity"></mapping>-->
+        <!--        <mapping class="com.project.hibernate.entity.many.MStudentEntity"></mapping>-->
+        <!--        <mapping class="com.project.hibernate.entity.many.MTeacherEntity"></mapping>-->
+        <mapping class="com.project.hibernate.entity.work.UserBean"></mapping>
+        <mapping class="com.project.hibernate.entity.work.RoleBean"></mapping>
+        <mapping class="com.project.hibernate.entity.work.PowerBean"></mapping>
     </session-factory>
 </hibernate-configuration>
