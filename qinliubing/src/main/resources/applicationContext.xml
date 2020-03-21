@@ -45,18 +45,32 @@
         <!-- 指明会话工厂的spring组件类名，引用factory对应的类 -->
         <property name="sqlSessionFactoryBeanName" value="factory"></property>
         <!-- 指明mapper接口所在的包，这样才能产生mapper接口所对应的实现类对象 -->
-        <property name="basePackage" value="com.project.mapper"></property>
+        <property name="basePackage" value="com.projectTP.mapper"></property>
     </bean>
 
     <!-- 配置事务管理器(spring-jdbc包) -->
-    <bean id="transaction" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!-- 配置数据源 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--配置数据源-->
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-    <!-- 表示允许通过注解配置事务 -->
-    <tx:annotation-driven transaction-manager="transaction"></tx:annotation-driven>
 
+
+    <!-- 表示允许通过注解配置事务(就不用再像下面需要配那么多了) -->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>-->
+
+    <!--事务通知-->
+    <tx:advice id="tadvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- find结尾的方法采用非事务，只读 -->
+            <tx:method name="*find" read-only="true"/>
+            <tx:method name="*" rollback-for="Exception"></tx:method>
+        </tx:attributes>
+    </tx:advice>
+    <!--通过AOP来把事务通知放到目标方法中-->
+    <aop:config>
+        <aop:advisor advice-ref="tadvice" pointcut="execution(* com.projectTP.service.*.*(..))"></aop:advisor>
+    </aop:config>
     <!-- 扫描指定包及子包中的spring组件 -->
-    <context:component-scan base-package="com.project"></context:component-scan>
+    <context:component-scan base-package="com.projectTP.service"></context:component-scan>
 
 </beans>
