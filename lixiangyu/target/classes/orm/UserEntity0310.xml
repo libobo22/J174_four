@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project0310.mapper.IUserMapper">
+
+    <resultMap id="userMap" type="userEntity0310">
+        <result column="pk_id" property="id"></result>
+        <result column="f_userName" property="userName"></result>
+        <result column="f_pwd" property="pwd"></result>
+        <result column="f_age" property="age"></result>
+        <collection property="list" ofType="userInfoEntity">
+            <result column="f_job" property="job"></result>
+            <result column="f_money" property="money"></result>
+            <result column="f_date" property="date"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getUserInfo" resultMap="userMap">
+        select * from t_user u join t_userInfo ui on u.pk_id=ui.fk_userId where u.pk_id = #{param1};
+    </select>
+
+    <insert id="register">
+        insert into t_user values (null,#{userName},#{pwd},#{age});
+    </insert>
+
+    <insert id="addUserInfo">
+        insert into t_userInfo values (null,#{job},#{money},#{date},#{userEntity.id});
+    </insert>
+
+    <resultMap id="userMap2" type="userEntity0310">
+        <result column="pk_id" property="id"></result>
+        <result column="f_userName" property="userName"></result>
+        <result column="f_pwd" property="pwd"></result>
+        <result column="f_age" property="age"></result>
+    </resultMap>
+    <select id="findAllUser" resultMap="userMap2">
+        select * from t_user;
+    </select>
+</mapper>
