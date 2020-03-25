@@ -18,12 +18,17 @@
         <!--显示打印hibernate执行的sql语句-->
         <property name="show_sql">true</property>
 
-        <mapping class="com.project.entity.UserEntity"></mapping>
-        <mapping class="com.project.entity.RoleEntity"></mapping>
-        <mapping class="com.project.entity.UserRoleEntity"></mapping>
-        <mapping class="com.project.entity.StudentEntity"></mapping>
-        <mapping class="com.project.entity.TeacherEntity"></mapping>
-        <mapping class="com.project.entity.many.MStudentEntity"></mapping>
-        <mapping class="com.project.entity.many.MTeacherEntity"></mapping>
+        <!--<mapping class="com.project.entity.UserEntity"></mapping>-->
+        <!--<mapping class="com.project.entity.RoleEntity"></mapping>-->
+        <!--<mapping class="com.project.entity.UserRoleEntity"></mapping>-->
+        <!--<mapping class="com.project.entity.StudentEntity"></mapping>-->
+        <!--<mapping class="com.project.entity.TeacherEntity"></mapping>-->
+        <!--<mapping class="com.project.entity.many.MStudentEntity"></mapping>-->
+        <!--<mapping class="com.project.entity.many.MTeacherEntity"></mapping>-->
+        <mapping class="com.project.entity.roleManage.XUserEntity"></mapping>
+        <mapping class="com.project.entity.roleManage.XRoleEntity"></mapping>
+        <mapping class="com.project.entity.roleManage.XUserRoleEntity"></mapping>
+        <mapping class="com.project.entity.roleManage.XPermissionEntity"></mapping>
+        <mapping class="com.project.entity.roleManage.XRolePermissionEntity"></mapping>
     </session-factory>
 </hibernate-configuration>
