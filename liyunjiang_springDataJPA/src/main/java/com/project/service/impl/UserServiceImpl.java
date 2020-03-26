@@ -4,7 +4,10 @@ import com.project.dao.IUserDao;
 import com.project.entity.UserEntity;
 import com.project.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,5 +57,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void deleteById(Integer id) {
         userDao.deleteById(id);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void saveAll(List<UserEntity> list) {
+        userDao.saveAll(list);
+    }
+
+    @Override
+    public List<UserEntity> getPageList(String userStatus, Pageable pageRequest) {
+
+        return userDao.getPageList(userStatus,pageRequest);
     }
 }

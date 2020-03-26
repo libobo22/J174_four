@@ -1,6 +1,8 @@
 package com.project.dao;
 
 import com.project.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,4 +14,6 @@ public interface IUserDao extends CrudRepository<UserEntity,Integer> {
     public List<UserEntity> findUserList(String userStatus);
     @Query("select new map(userName,loginName) from UserEntity ")
     public List<Map> getListMap();
+    @Query("from UserEntity where userStatus=?1")
+    public List<UserEntity> getPageList(String status, Pageable pageRequest);
 }
