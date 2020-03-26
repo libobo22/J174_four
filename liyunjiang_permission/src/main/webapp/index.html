@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>登录成功</h1>
+    <div id="permission">
+        <ul>
+            <li v-for="item in permissionList"><a :href="'/permission'+item.perURL">{{item.perName}}</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    window.onload=function () {
+        axios({
+            url:"user/findPermission",
+            method:"get"
+        }).then(function(response){
+            var allPermission=response.data;
+            console.log(allPermission);
+            var app=new Vue({
+                el:"#permission",
+                data:{
+                    permissionList:allPermission
+                },
+                methods:{
+                    hyperlink(URL){
+
+                    }
+                }
+            });
+        }).catch(function(error){
+            console.log(error);
+        });
+    }
+</script>
+
+</html>

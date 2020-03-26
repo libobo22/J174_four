@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <form id="loginForm">
+        登录名：<input type="text" name="loginName" v-model="loginName">
+        密码：<input type="text" name="password" v-model="password"><br>
+        <a @click="login">登录</a>
+    </form>
+</body>
+<script>
+    var loginVue=new Vue({
+        el: "#loginForm",
+        data:{
+            loginName:"",
+            password:"",
+        },
+        methods:{
+            login:function () {
+                console.log(this.loginName);
+                axios({
+                    url: "user/login",
+                    method:"post",
+                    data:{
+                        "loginName": this.loginName,
+                        'password': this.password,
+                    }
+                }).then(function (response) {
+                    if (response.data=="ok"){
+                        window.location="index.html";
+                    }else{
+                        alert(response.data)
+                    }
+                }).catch(function (error) {
+                    alert("登录失败！");
+                })
+            }
+        }
+
+    });
+</script>
+</html>

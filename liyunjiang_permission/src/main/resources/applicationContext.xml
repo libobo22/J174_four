@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+         					http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+							http://www.springframework.org/schema/tx 
+							http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-4.0.xsd
+							http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                            http://www.springframework.org/schema/mvc   
+							http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+							http://www.springframework.org/schema/data/jpa
+							http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+	<context:component-scan base-package="com.project">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+	</context:component-scan>
+
+	<!--配置数据源，连接数据库-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="jdbc:mysql://localhost:3306/xfz?characterEncoding=utf-8&amp;allowMultiQueries=true"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<!--JPA实体管理器工厂-->
+	<bean id="managerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!--配置数据源-->
+		<property name="dataSource" ref="dataSource"></property>
+		<!--配置适配器（就是实现JPA的框架）-->
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+		</property>
+		<!--管理实体-->
+		<property name="packagesToScan" value="com.project.entity"></property>
+
+		<property name="jpaProperties">
+			<props>
+				<!--显示打印hibernate执行的sql语句-->
+				<prop key="hibernate.show_sql">true</prop>
+				<!--是否允许hibernate把对象自动生成表-->
+				<!--update 对象属性改变，hibernate会自动去修改表的列，进行同步-->
+				<!--create 启动hibernate时，会把数据库的表全部删除，重新再建-->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+	<!--配置适配器-->
+	<bean id="hibernateVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<!--配置方言-->
+		<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"></property>
+	</bean>
+
+	<!--把工厂交给springdataJPA，并且把自定义接口交给springdataJPA，事务管理也要交给springdataJPA-->
+	<jpa:repositories base-package="com.project.dao" entity-manager-factory-ref="managerFactory" transaction-manager-ref="transactionManager"></jpa:repositories>
+	<!--配置事务管理器-->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="managerFactory"></property>
+	</bean>
+	<!--开启注解支持事务-->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"></tx:annotation-driven>
+
+</beans>
